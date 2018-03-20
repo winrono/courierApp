@@ -1,24 +1,27 @@
-import React, {Component} from 'react';
-import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
-import { DrawerNavigator } from 'react-navigation';
-import {Map, Login, Orders} from './components/export'
+import React, {Component} from 'react'
+import {StatusBar} from 'react-native'
+import {Provider} from 'react-redux'
+import {createStore} from 'redux'
+import CourierApp from './CourierApp'
+import courierAppReducer from './reducers/courierApp'
 
-const CourierApp = DrawerNavigator({
-  Orders: { screen: Orders },
-  About: {screen: Map}
-});
+let initialState = {
+  user: {
+    isLoggedIn: false
+  }
+}
+
+let store = createStore(courierAppReducer, initialState);
 
 export default class App extends Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      isLoggedIn: false
-    }
+  componentDidMount() {
+    StatusBar.setHidden(true);
   }
   render() {
-    if (this.state.isLoggedIn){return <CourierApp />}
-    else {
-      return <Login onLoginPress={()=>{this.setState({isLoggedIn: true})}}/>
-    };
-    }
+    return (
+      <Provider store={store}>
+        <CourierApp store={store}/>
+      </Provider>
+    )
+  }
 }

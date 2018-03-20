@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
-import {Text} from 'react-native';
+import {Text, Button} from 'react-native';
 
 export default class Map extends Component {
     static navigationOptions = {
-      drawerLabel: 'Hey'
+      drawerLabel: "Map"
     };
     render() {
-      return <Text>Map goes here</Text>;
+    return (<Text>Map goes here</Text>);
     }
   }
+  
